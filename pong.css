@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    overflow: hidden;
+}
+
+#ball {
+    position: fixed;
+    width: 64px;
+    height: 64px;
+}
+
+
+
+#paddle1 {
+    position: fixed;
+    width: 24px;
+    height: 192px;
+
+}
+
+#paddle2 {
+    position: fixed;
+
+    top: 1;
+    left: 200;
+
+    width: 24px;
+    height: 192px;
+}
+
+.tabScore {
+    height: fit-content;
+    margin-top: 15px;
+    display: flex;
+    border: 2px solid black;
+
+}
+
+.scoreSide {
+    margin-left: 8px;
+    margin-right: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#score1,
+#score2 {
+    margin: 5px;
+}
+
+#separator {
+    width: 5px;
+    background-image: linear-gradient(white 33%, rgba(255, 255, 255, 0) 0%);
+    background-position: right;
+    background-size: 10px 30px;
+    background-repeat: repeat-y;
+}
