@@ -1,3 +1,3 @@
 # PONG GAME
 
-## LINK : http://127.0.0.1:5500/pong.html
+## LINK : https://zatoun77.github.io/basic-pong-game/pong.html

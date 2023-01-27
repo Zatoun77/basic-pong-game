@@ -10,8 +10,10 @@ class Ball {
     this.height = 64;
 
     // random direction between -45 and 45 degrees
+    this.side = 1;
     let angle = (1 / 2) * Math.PI * Math.random() - (1 / 4) * Math.PI;
     if (Math.random() > 0.5) {
+      this.side = 0;
       angle = angle + Math.PI;
     }
     this.speed = speedBall;
@@ -67,20 +69,26 @@ function update() {
 
   // check collision with the paddles
   if (
-    ball.x < paddle1.x + paddle1.width &&
-    ball.y > paddle1.y &&
-    ball.y < paddle1.y + paddle1.height
+    ball.x >= paddle1.x &&
+    ball.x <= paddle1.x + paddle1.width &&
+    ball.y >= paddle1.y &&
+    ball.y <= paddle1.y + paddle1.height &&
+    ball.side == 0
   ) {
     console.log("collision paddle1");
+    ball.side = 1;
     ball.x = paddle1.x + paddle1.width;
     ball.vx = -ball.vx;
   }
   if (
-    ball.x + ball.width > paddle2.x &&
-    ball.y > paddle2.y &&
-    ball.y < paddle2.y + paddle2.height
+    ball.x + ball.width >= paddle2.x &&
+    ball.x + ball.width <= paddle2.x + paddle2.width &&
+    ball.y >= paddle2.y &&
+    ball.y <= paddle2.y + paddle2.height &&
+    ball.side == 1
   ) {
     console.log("collision paddle2");
+    ball.side = 0;
     ball.x = paddle2.x - ball.width;
     ball.vx = -ball.vx;
   }
