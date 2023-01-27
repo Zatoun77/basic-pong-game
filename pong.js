@@ -52,7 +52,6 @@ function update() {
   ball.y += ball.vy;
 
   // check for collision with the top and bottom walls and update the score.
-  // TODO: not perfect ball be blocked by the wall
   if (ball.x < 0 || ball.x > body.width) {
     if (ball.x < 0) {
       scorePlayer2++;
@@ -67,12 +66,12 @@ function update() {
     ball.vy = -ball.vy;
   }
 
-  // check collision with the paddles
+  // check the collision between le ball area et the paddle area
   if (
-    ball.x >= paddle1.x &&
-    ball.x <= paddle1.x + paddle1.width &&
-    ball.y >= paddle1.y &&
-    ball.y <= paddle1.y + paddle1.height &&
+    ball.x < paddle1.x + paddle1.width &&
+    ball.x + ball.width > paddle1.x &&
+    ball.y < paddle1.y + paddle1.height &&
+    ball.y + ball.height > paddle1.y &&
     ball.side == 0
   ) {
     console.log("collision paddle1");
@@ -81,10 +80,10 @@ function update() {
     ball.vx = -ball.vx;
   }
   if (
-    ball.x + ball.width >= paddle2.x &&
-    ball.x + ball.width <= paddle2.x + paddle2.width &&
-    ball.y >= paddle2.y &&
-    ball.y <= paddle2.y + paddle2.height &&
+    ball.x < paddle2.x + paddle2.width &&
+    ball.x + ball.width > paddle2.x &&
+    ball.y < paddle2.y + paddle2.height &&
+    ball.y + ball.height > paddle2.y &&
     ball.side == 1
   ) {
     console.log("collision paddle2");
