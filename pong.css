@@ -64,3 +64,8 @@ body {
     background-size: 10px 30px;
     background-repeat: repeat-y;
 }
+
+#record {
+    position: fixed;
+
+}
