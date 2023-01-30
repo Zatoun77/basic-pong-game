@@ -51,6 +51,32 @@ function update() {
   ball.x += ball.vx;
   ball.y += ball.vy;
 
+  // check the collision between le ball area et the paddle area
+  if (
+    ball.x < paddle1.x + paddle1.width &&
+    ball.x + ball.width > paddle1.x &&
+    ball.y < paddle1.y + paddle1.height &&
+    ball.y + ball.height > paddle1.y &&
+    ball.side == 0
+  ) {
+    console.log("collision paddle1");
+    ball.side = 1;
+    ball.x = paddle1.x + paddle1.width;
+    ball.vx = -ball.vx * 1.1;
+  }
+  if (
+    ball.x < paddle2.x + paddle2.width &&
+    ball.x + ball.width > paddle2.x &&
+    ball.y < paddle2.y + paddle2.height &&
+    ball.y + ball.height > paddle2.y &&
+    ball.side == 1
+  ) {
+    console.log("collision paddle2");
+    ball.side = 0;
+    ball.x = paddle2.x - ball.width;
+    ball.vx = -ball.vx * 1.1;
+  }
+
   // check for collision with the top and bottom walls and update the score.
   if (ball.x < 0 || ball.x > body.width) {
     if (ball.x < 0) {
@@ -64,32 +90,6 @@ function update() {
   }
   if (ball.y < 0 || ball.y + ball.height > body.height) {
     ball.vy = -ball.vy;
-  }
-
-  // check the collision between le ball area et the paddle area
-  if (
-    ball.x < paddle1.x + paddle1.width &&
-    ball.x + ball.width > paddle1.x &&
-    ball.y < paddle1.y + paddle1.height &&
-    ball.y + ball.height > paddle1.y &&
-    ball.side == 0
-  ) {
-    console.log("collision paddle1");
-    ball.side = 1;
-    ball.x = paddle1.x + paddle1.width;
-    ball.vx = -ball.vx * 1.2;
-  }
-  if (
-    ball.x < paddle2.x + paddle2.width &&
-    ball.x + ball.width > paddle2.x &&
-    ball.y < paddle2.y + paddle2.height &&
-    ball.y + ball.height > paddle2.y &&
-    ball.side == 1
-  ) {
-    console.log("collision paddle2");
-    ball.side = 0;
-    ball.x = paddle2.x - ball.width;
-    ball.vx = -ball.vx * 1.1;
   }
 
   //move paddles
