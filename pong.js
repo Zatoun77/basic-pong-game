@@ -122,8 +122,7 @@ let fps = 30;
 let speedBall = 15;
 let speedPaddle = 15;
 
-// get the body dimensions
-let body = document.body.getBoundingClientRect();
+let body;
 
 // create the objects
 let ball;
@@ -148,9 +147,12 @@ window.onload = function () {
 
 // initialize the game
 function init() {
+  // set and get the body size
+  document.body.style.height = "100%";
+  body = document.body.getBoundingClientRect();
+
   // put the separator in the middle
   document.getElementById("separator").style.height = body.height + "px";
-  document.body.style.height = "100%";
 
   ball = new Ball();
   paddle1 = new Paddle("paddle1", 15);
@@ -180,7 +182,7 @@ function init() {
   version.style.left = body.width - 100 + "px";
 
   place_objects([ball, paddle1, paddle2]);
-  //setInterval(update, 1000 / fps);
+  setInterval(update, 1000 / fps);
 }
 
 // track the player input
