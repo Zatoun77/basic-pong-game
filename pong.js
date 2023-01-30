@@ -77,7 +77,7 @@ function update() {
     console.log("collision paddle1");
     ball.side = 1;
     ball.x = paddle1.x + paddle1.width;
-    ball.vx = -ball.vx;
+    ball.vx = -ball.vx * 1.2;
   }
   if (
     ball.x < paddle2.x + paddle2.width &&
@@ -89,7 +89,7 @@ function update() {
     console.log("collision paddle2");
     ball.side = 0;
     ball.x = paddle2.x - ball.width;
-    ball.vx = -ball.vx;
+    ball.vx = -ball.vx * 1.1;
   }
 
   //move paddles
