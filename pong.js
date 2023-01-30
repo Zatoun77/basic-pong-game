@@ -60,9 +60,10 @@ function update() {
     ball.side == 0
   ) {
     console.log("collision paddle1");
+    actualRecord++;
     ball.side = 1;
     ball.x = paddle1.x + paddle1.width;
-    ball.vx = -ball.vx * 1.1;
+    ball.vx = -ball.vx * 1.15;
   }
   if (
     ball.x < paddle2.x + paddle2.width &&
@@ -72,9 +73,15 @@ function update() {
     ball.side == 1
   ) {
     console.log("collision paddle2");
+    actualRecord++;
     ball.side = 0;
     ball.x = paddle2.x - ball.width;
-    ball.vx = -ball.vx * 1.1;
+    ball.vx = -ball.vx * 1.15;
+  }
+  // update the record
+  if (actualRecord > record) {
+    record = actualRecord;
+    document.getElementById("record").innerHTML = "RECORD : " + record;
   }
 
   // check for collision with the top and bottom walls and update the score.
@@ -86,12 +93,14 @@ function update() {
       scorePlayer1++;
       scoreBoard1.innerHTML = scorePlayer1;
     }
+
+    actualRecord = 0;
     ball = new Ball();
   }
   if (ball.y < 0 || ball.y + ball.height > body.height) {
     ball.vy = -ball.vy;
   }
-
+  botMove();
   //move paddles
   if (buttons.p1_up && paddle1.y - 5 >= 0) {
     paddle1.y -= paddle1.speed;
@@ -129,6 +138,9 @@ let scorePlayer2 = 0;
 
 let separator;
 
+let record = 0;
+let actualRecord = 0;
+
 // wait all the elements to be loaded for start the game
 window.onload = function () {
   init();
@@ -144,11 +156,31 @@ function init() {
   paddle1 = new Paddle("paddle1", 15);
   paddle2 = new Paddle("paddle2", body.width - 20 - 15);
 
+  // set the score board
+  let recordBoard = document.getElementById("record");
   scoreBoard1 = document.getElementById("score1");
   scoreBoard2 = document.getElementById("score2");
 
+  // set change record
+  recordBoard.style.top = body.height - 100 + "px";
+  recordBoard.style.left = body.width / 2 - 200 + "px";
+
+  // bot button
+  botButton = document.getElementById("botButton");
+  botButton.style.top = body.height - 100 + "px";
+  botButton.style.left = body.width / 2 + 100 + "px";
+  botButton.onclick = function () {
+    botButton.innerHTML = botPlaying ? "BOT OFF" : "BOT ON";
+    botPlaying = !botPlaying;
+  };
+
+  // version
+  let version = document.getElementById("version");
+  version.style.top = body.height - 50 + "px";
+  version.style.left = body.width - 100 + "px";
+
   place_objects([ball, paddle1, paddle2]);
-  setInterval(update, 1000 / fps);
+  //setInterval(update, 1000 / fps);
 }
 
 // track the player input
@@ -159,6 +191,7 @@ let buttons = {
   p2_down: false,
 };
 
+// player move
 function track_player_input(event) {
   if (event.type == "keydown") {
     switch (event.key) {
@@ -195,3 +228,24 @@ function track_player_input(event) {
 
 document.addEventListener("keydown", track_player_input);
 document.addEventListener("keyup", track_player_input);
+
+// bot move
+let botPlaying = false;
+
+function botMove() {
+  if (botPlaying) {
+    if (
+      ball.y < paddle2.y + paddle2.height &&
+      ball.y + ball.height > paddle2.y
+    ) {
+      buttons.p2_up = false;
+      buttons.p2_down = false;
+    } else if (ball.y < paddle2.y + paddle2.height / 2) {
+      buttons.p2_up = true;
+      buttons.p2_down = false;
+    } else if (ball.y + ball.height > paddle2.y + paddle2.height / 2) {
+      buttons.p2_up = false;
+      buttons.p2_down = true;
+    }
+  }
+}
